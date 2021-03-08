@@ -11,6 +11,7 @@ class App extends Component {
         'id' : '1',
         'BillName' : 'Newberg Water',
         'BillLink' : 'https://www.newbergoregon.gov/finance/page/how-pay-your-water-bill',
+        'DatePaid' : '3/5/2021',
         'Paid' : false
       }
     ]
@@ -52,16 +53,34 @@ class App extends Component {
       );
     }
     //unPaid Bills
-    let bills =
+    let unPaidBills =
     allBills.map(bill => {
+      if (bill.Paid === false) {
       return <tr key={bill.Id}>
-              <td>{bill.BillName}</td>
-              <td>{bill.BillLink}</td>
-              <td>{bill.Paid}</td>
-              <td><Button className='btn btn-lg btn-success' onClick={() => this.billPaid(bill.id)}> <FontAwesomeIcon icon={faThumbsUp} /></Button></td>
+                <td>{bill.BillName}</td>
+                <td>{bill.BillLink}</td>
+                <td><Button className='btn btn-lg btn-success' onClick={() => this.billPaid(bill.id)}> <FontAwesomeIcon icon={faThumbsUp} /></Button></td>
+              </tr>
+        }
+      }  
+    )
 
-      </tr>
-    })
+    //Paid Bills
+    let paidBills =
+    paid.map(bill => {
+      if (bill.Paid === true ) {
+        return <tr key={bill.Id}>
+                  <td>{bill.BillName}</td>
+                  <td>{bill.BillLink}</td>
+                  <td>{bill.DatePaid}</td>
+                </tr>
+        }
+      }
+    )
+
+
+
+
   }
 
 }
