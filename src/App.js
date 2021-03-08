@@ -34,4 +34,10 @@ class App extends Component {
     this.setState({ bills : updatedBills });
   }
 
+  async componentDidMount() {
+    const response = await fetch();
+    const body = await response.json(0);
+      this.setState({ bills: body, isLoading: false })
+  }
+
 }
