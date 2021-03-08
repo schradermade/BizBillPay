@@ -9,7 +9,7 @@ class App extends Component {
     bills: [
       {
         'id' : '1',
-        'Bill' : 'Newberg Water',
+        'BillName' : 'Newberg Water',
         'BillLink' : 'https://www.newbergoregon.gov/finance/page/how-pay-your-water-bill',
         'Paid' : false
       }
@@ -38,6 +38,30 @@ class App extends Component {
     const response = await fetch();
     const body = await response.json(0);
       this.setState({ bills: body, isLoading: false })
+  }
+
+  render() {
+    const isLoading = this.state.isLoading;
+    const allBills = this.state.bills;
+    const unPaid = this.state.bills;
+    const paid = this.state.bills;
+
+    if (isLoading) {
+      return(
+        <div>Loading...</div>
+      );
+    }
+    //unPaid Bills
+    let bills =
+    allBills.map(bill => {
+      return <tr key={bill.Id}>
+              <td>{bill.BillName}</td>
+              <td>{bill.BillLink}</td>
+              <td>{bill.Paid}</td>
+              <td><Button className='btn btn-lg btn-success' onClick={() => this.billPaid(bill.id)}> <FontAwesomeIcon icon={faThumbsUp} /></Button></td>
+
+      </tr>
+    })
   }
 
 }
