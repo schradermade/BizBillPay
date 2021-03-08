@@ -20,4 +20,10 @@ class App extends Component {
     let updatedBills = [...this.state.bills].filter (i => i.id !== id)
     this.setState({ bills : updatedBills });
   }
+
+  redirect(id) {
+    let bill = [...this.state.bills].filter (i => i.id === id);
+    let url = bill[0].BillLink;
+    window.open(url);
+  }
 }
