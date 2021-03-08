@@ -21,9 +21,17 @@ class App extends Component {
     this.setState({ bills : updatedBills });
   }
 
-  redirect(id) {
+  redirectToBill(id) {
     let bill = [...this.state.bills].filter (i => i.id === id);
     let url = bill[0].BillLink;
     window.open(url);
   }
+
+  billPaid(id) {
+    let bill = this.state.bills.filter (i => i.id === id);
+    bill[0].Paid = true;
+    let updatedBills = [...this.state.bills];
+    this.setState({ bills : updatedBills });
+  }
+
 }
