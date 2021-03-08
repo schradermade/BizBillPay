@@ -54,7 +54,7 @@ class App extends Component {
     }
     //unPaid Bills
     let unPaidBills =
-    allBills.map(bill => {
+    unPaid.map(bill => {
       if (bill.Paid === false) {
       return <tr key={bill.Id}>
                 <td>{bill.BillName}</td>
@@ -78,9 +78,34 @@ class App extends Component {
       }
     )
 
-
-
-
+    return (
+      <>
+        <div className='row'>
+          <div className='col-12'>
+            <h1 className='center text-center'>Small Business Bill Tracker</h1>
+          </div>
+        </div>
+        <div className='container border border-secondary rounded center'>
+          <div className='row'>
+            <div className='center text-center'>
+              <Table dark responsive striped bordered hover>
+                <thead>
+                  <tr>
+                    <th>Bill Name</th>
+                    <th>Bill Link</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  { this.state.bills.length === 0 ? <td colSpan='8'>No un-paid bills.</td> : bills}
+                </tbody>
+              </Table>
+            </div>
+          </div>
+        </div>
+      </>
+    
+    );
   }
-
 }
+
+export default App;
