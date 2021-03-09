@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Table, Button } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faThumbsUp, faFileInvoiceDollar, faHandshake } from '@fortawesome/free-solid-svg-icons';
+import { faFileInvoiceDollar, faHandshake, faHandshakeSlash } from '@fortawesome/free-solid-svg-icons';
 
 class App extends Component {
   state = {
@@ -15,28 +15,28 @@ class App extends Component {
         'Paid' : false
       },
       {
-        'id' : '1',
+        'id' : '2',
         'BillName' : 'PGE',
         'BillLink' : 'https://www.newbergoregon.gov/finance/page/how-pay-your-water-bill',
         'DatePaid' : '3/5/2021',
         'Paid' : false
       },
       {
-        'id' : '1',
+        'id' : '3',
         'BillName' : 'ArrowHead Insurance',
         'BillLink' : 'https://www.newbergoregon.gov/finance/page/how-pay-your-water-bill',
         'DatePaid' : '3/5/2021',
         'Paid' : false
       },
       {
-        'id' : '1',
+        'id' : '4',
         'BillName' : 'NW Natural Gas',
         'BillLink' : 'https://www.newbergoregon.gov/finance/page/how-pay-your-water-bill',
         'DatePaid' : '3/5/2021',
         'Paid' : false
       },
       {
-        'id' : '1',
+        'id' : '5',
         'BillName' : 'Lease Payment',
         'BillLink' : 'https://www.newbergoregon.gov/finance/page/how-pay-your-water-bill',
         'DatePaid' : '3/5/2021',
@@ -63,6 +63,13 @@ class App extends Component {
     this.setState({ bills : updatedBills });
   }
 
+  reverse(id) {
+    let bill = this.state.bills.filter (i => i.id === id);
+    bill[0].Paid = false;
+    let updatedBills = [...this.state.bills];
+    this.setState({ bills : updatedBills });
+  }
+
   // async componentDidMount() {
   //   const response = await fetch();
   //   const body = await response.json(0);
@@ -72,8 +79,8 @@ class App extends Component {
   render() {
     const isLoading = this.state.isLoading;
     const allBills = this.state.bills;
-    const unPaid = this.state.bills;
-    const paid = this.state.bills;
+    let unPaid = [...this.state.bills].filter (i => i.Paid === false)
+    let paid = [...this.state.bills].filter (i => i.Paid === true)
 
     if (isLoading) {
       return(
@@ -82,12 +89,18 @@ class App extends Component {
     }
     //unPaid Bills
     let unPaidBills =
-    unPaid.map(bill => {
+    allBills.map(bill => {
       if (bill.Paid === false) {
-      return <tr key={bill.Id}>
+      return  <tr key={bill.Id}>
               <td>{bill.BillName}</td>
-              <td><Button className='btn btn-lg btn-warning' onClick={() => this.redirectToBill(bill.id)}> <FontAwesomeIcon icon={faFileInvoiceDollar} /></Button></td>
-              <td><Button className='btn btn-lg btn-success' onClick={() => this.billPaid(bill.id)}> <FontAwesomeIcon icon={faHandshake} /></Button></td>
+
+              <td><Button className='btn btn-lg btn-warning' 
+                  onClick={() => this.redirectToBill(bill.id)}>
+                  <FontAwesomeIcon icon={faFileInvoiceDollar} /></Button></td>
+
+              <td><Button className='btn btn-lg btn-success' 
+                  onClick={() => this.billPaid(bill.id)}>
+                  <FontAwesomeIcon icon={faHandshake} /></Button></td>
             </tr>
         }
       }  
@@ -95,12 +108,15 @@ class App extends Component {
 
     //Paid Bills
     let paidBills =
-    paid.map(bill => {
+    allBills.map(bill => {
       if (bill.Paid === true ) {
         return <tr key={bill.Id}>
                   <td>{bill.BillName}</td>
                   <td>{bill.BillLink}</td>
                   <td>{bill.DatePaid}</td>
+                  <td><Button className='btn btn-lg btn-success' 
+                  onClick={() => this.reverse(bill.id)}>
+                  <FontAwesomeIcon icon={faHandshakeSlash} /></Button></td>
                 </tr>
         }
       }
@@ -130,7 +146,7 @@ class App extends Component {
                   </tr>
                 </thead>
                 <tbody>
-                  { this.state.bills.length === 0 ? <td colSpan='8'>No unpaid bills.</td> : unPaidBills}
+                  { unPaid.length === 0 ? <td colSpan='8'>No unpaid bills.</td> : unPaidBills}
                 </tbody>
               </Table>
             </div>
@@ -150,10 +166,11 @@ class App extends Component {
                     <th>Bill Name</th>
                     <th>Bill Link</th>
                     <th>Date Paid</th>
+                    <th>Reverse</th>
                   </tr>
                 </thead>
                 <tbody>
-                  { this.state.bills.length === 0 ? <td colSpan='8'>No unpaid bills.</td> : paidBills}
+                  { paid.length === 0 ? <td colSpan='8'>No unpaid bills.</td> : paidBills}
                 </tbody>
               </Table>
             </div>
