@@ -16,7 +16,11 @@ class App extends Component {
         'BillLink' : 'https://www.newbergoregon.gov/finance/page/how-pay-your-water-bill',
         'DatePaid' : '3/5/2021',
         'DueDate' : '4/5/2021',
-        'Paid' : false
+        'Paid' : false,
+        'Phone' : "503-555-5555",
+        'Address' : '1234 Main St',
+        'CityState' : 'Tigard, Oregon 97062',
+        'ContactShow' : false
       },
       {
         'id' : v4(),
@@ -78,6 +82,14 @@ class App extends Component {
     this.setState({ bills : updatedBills });
   }
 
+  contactClick(id) {
+    let bill = this.state.bills.filter (i => i.id === id);
+    let currentState = bill[0].ContactShow;
+    bill[0].ContactShow = !currentState;
+    let updatedBills = [...this.state.bills];
+    this.setState({ bills : updatedBills });
+  }
+
   // async componentDidMount() {
   //   const response = await fetch();
   //   const body = await response.json(0);
@@ -89,6 +101,7 @@ class App extends Component {
     const allBills = this.state.bills;
     let unPaid = [...this.state.bills].filter (i => i.Paid === false)
     let paid = [...this.state.bills].filter (i => i.Paid === true)
+
     let isBackgroundGreen = unPaid.length === 0 ? true : false
 
 
@@ -112,6 +125,11 @@ class App extends Component {
                 <td><Button className='btn btn-lg btn-success' 
                   onClick={() => this.billPaid(bill.id)}>
                   <FontAwesomeIcon icon={faHandshake} /></Button></td>
+
+                <td><Button className='btn btn-lg btn-info' 
+                onClick={() => this.contactClick(bill.id)}>
+                <FontAwesomeIcon icon={faAddressCard} /></Button></td>
+                { bill.ContactShow === true ? <td>PHONE NUMBER HERE</td> : null }
               </tr>
         }
       }  
@@ -134,6 +152,9 @@ class App extends Component {
                 onClick={() => this.reverse(bill.id)}>
                 <FontAwesomeIcon icon={faHandshakeSlash} /></Button></td>
               </tr>
+
+
+              
         }
       }
     )
@@ -157,6 +178,7 @@ class App extends Component {
                     <th>Due Date</th> 
                     <th>Bill Link</th>
                     <th>Mark Paid</th>
+                    <th>Show Contact</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -182,6 +204,7 @@ class App extends Component {
                     <th>Date Paid</th>
                     <th>Bill Link</th>
                     <th>Reverse</th>
+                    
                   </tr>
                 </thead>
                 <tbody>
