@@ -36,3 +36,11 @@
     transform: rotate(360deg);
   }
 }
+
+.background-red {
+  background-color: rgb(103, 41, 41);
+}
+
+.background-green {
+  background-color: rgb(70, 111, 70);
+}
