@@ -28,7 +28,11 @@ class App extends Component {
         'BillLink' : 'https://www.newbergoregon.gov/finance/page/how-pay-your-water-bill',
         'DatePaid' : '3/5/2021',
         'DueDate' : '4/5/2021',
-        'Paid' : false
+        'Paid' : false,
+        'Phone' : "503-555-5555",
+        'Address' : '1234 Main St',
+        'CityState' : 'Tigard, Oregon 97062',
+        'ContactShow' : false
       },
       {
         'id' : v4(),
@@ -36,7 +40,11 @@ class App extends Component {
         'BillLink' : 'https://www.newbergoregon.gov/finance/page/how-pay-your-water-bill',
         'DatePaid' : '3/5/2021',
         'DueDate' : '4/5/2021',
-        'Paid' : false
+        'Paid' : false,
+        'Phone' : "503-555-5555",
+        'Address' : '1234 Main St',
+        'CityState' : 'Tigard, Oregon 97062',
+        'ContactShow' : false
       },
       {
         'id' : v4(),
@@ -44,7 +52,11 @@ class App extends Component {
         'BillLink' : 'https://www.newbergoregon.gov/finance/page/how-pay-your-water-bill',
         'DatePaid' : '3/5/2021',
         'DueDate' : '4/5/2021',
-        'Paid' : false
+        'Paid' : false,
+        'Phone' : "503-555-5555",
+        'Address' : '1234 Main St',
+        'CityState' : 'Tigard, Oregon 97062',
+        'ContactShow' : false
       },
       {
         'id' : v4(),
@@ -52,7 +64,11 @@ class App extends Component {
         'BillLink' : 'https://www.newbergoregon.gov/finance/page/how-pay-your-water-bill',
         'DatePaid' : '3/5/2021',
         'DueDate' : '4/5/2021',
-        'Paid' : false
+        'Paid' : false,
+        'Phone' : "503-555-5555",
+        'Address' : '1234 Main St',
+        'CityState' : 'Tigard, Oregon 97062',
+        'ContactShow' : false
       },
     ]
   }
@@ -129,7 +145,13 @@ class App extends Component {
                 <td><Button className='btn btn-lg btn-info' 
                 onClick={() => this.contactClick(bill.id)}>
                 <FontAwesomeIcon icon={faAddressCard} /></Button></td>
-                { bill.ContactShow === true ? <td>PHONE NUMBER HERE</td> : null }
+                { bill.ContactShow === true ? 
+                <td className='center text-left'> <strong>Phone</strong><br/>
+                                                  {bill.Phone}<br/><br/>
+                                                  <strong>Address</strong><br/>
+                                                  {bill.Address}<br/><br/>
+                                                  <strong>City, State, Zip</strong><br/>
+                                                  {bill.CityState}</td> : null }
               </tr>
         }
       }  
