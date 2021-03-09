@@ -173,9 +173,18 @@ class App extends Component {
                 <td><Button className='btn btn-lg btn-success' 
                 onClick={() => this.reverse(bill.id)}>
                 <FontAwesomeIcon icon={faHandshakeSlash} /></Button></td>
+
+                <td><Button className='btn btn-lg btn-info' 
+                onClick={() => this.contactClick(bill.id)}>
+                <FontAwesomeIcon icon={faAddressCard} /></Button></td>
+                { bill.ContactShow === true ? 
+                <td className='center text-left'> <strong>Phone</strong><br/>
+                                                  {bill.Phone}<br/><br/>
+                                                  <strong>Address</strong><br/>
+                                                  {bill.Address}<br/><br/>
+                                                  <strong>City, State, Zip</strong><br/>
+                                                  {bill.CityState}</td> : null }
               </tr>
-
-
               
         }
       }
