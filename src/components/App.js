@@ -11,7 +11,7 @@ class App extends Component {
     isLoading : false,
     bills: [
       {
-        'id' : '1',
+        'id' : v4(),
         'BillName' : 'Newberg Water',
         'BillLink' : 'https://www.newbergoregon.gov/finance/page/how-pay-your-water-bill',
         'DatePaid' : '3/5/2021',
@@ -19,7 +19,7 @@ class App extends Component {
         'Paid' : false
       },
       {
-        'id' : '2',
+        'id' : v4(),
         'BillName' : 'PGE',
         'BillLink' : 'https://www.newbergoregon.gov/finance/page/how-pay-your-water-bill',
         'DatePaid' : '3/5/2021',
@@ -27,7 +27,7 @@ class App extends Component {
         'Paid' : false
       },
       {
-        'id' : '3',
+        'id' : v4(),
         'BillName' : 'ArrowHead Insurance',
         'BillLink' : 'https://www.newbergoregon.gov/finance/page/how-pay-your-water-bill',
         'DatePaid' : '3/5/2021',
@@ -35,7 +35,7 @@ class App extends Component {
         'Paid' : false
       },
       {
-        'id' : '4',
+        'id' : v4(),
         'BillName' : 'NW Natural Gas',
         'BillLink' : 'https://www.newbergoregon.gov/finance/page/how-pay-your-water-bill',
         'DatePaid' : '3/5/2021',
@@ -43,7 +43,7 @@ class App extends Component {
         'Paid' : false
       },
       {
-        'id' : '5',
+        'id' : v4(),
         'BillName' : 'Lease Payment',
         'BillLink' : 'https://www.newbergoregon.gov/finance/page/how-pay-your-water-bill',
         'DatePaid' : '3/5/2021',
