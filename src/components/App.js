@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import './App.css';
+import { v4 } from 'uuid';
+import '../App.css';
 import { Table, Button } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFileInvoiceDollar, faHandshake, faHandshakeSlash, faAddressCard } from '@fortawesome/free-solid-svg-icons';
@@ -140,20 +141,16 @@ class App extends Component {
     return (
       <>
       <div className={ isBackgroundGreen ? 'background-green' : 'background-red' }>
-        <div className='row'>
-          <div className='col-12'>
-            <h1 className='center text-center'>Small Business Bill Tracker</h1>
-          </div>
-        </div>
 
         {/* UN-PAID BILLS TABLE */}
         <div className='container border border-secondary rounded center'>
+          <h1 className='center text-left'>Business Bill Tracker</h1>
           <div className='row'>
             <div className='center text-center'>
               <Table dark responsive striped bordered hover>
                 <thead>
                   <tr>
-                  <th colSpan='8'>UnPaid Bills</th>
+                  <th className='center text-left' colSpan='8'>UnPaid Bills</th>
                   </tr>
                   <tr>
                     <th>Bill Name</th>
@@ -177,7 +174,7 @@ class App extends Component {
               <Table dark responsive striped bordered hover>
                 <thead>
                 <tr>
-                  <th colSpan='8'>Paid Bills</th>
+                  <th className='center text-left' colSpan='8'>Paid Bills</th>
                 </tr>
                   <tr>
                     <th>Bill Name</th>
