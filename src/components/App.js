@@ -244,7 +244,7 @@ class App extends Component {
               <Table dark responsive striped bordered hover>
                 <thead>
                   <tr>
-                  <th className='center text-left' colSpan='8'>UnPaid Bills</th>
+                  <th className='center text-left' colSpan='8'>UNPAID</th>
                   </tr>
                   <tr>
                     <th>Bill Name</th>
@@ -270,7 +270,7 @@ class App extends Component {
               <Table className='border border-white' dark responsive striped bordered hover>
                 <thead>
                 <tr>
-                  <th className='center text-left' colSpan='8'>Paid Bills</th>
+                  <th className='center text-left' colSpan='8'>PAID</th>
                 </tr>
                   <tr>
                     <th>Bill Name</th>
