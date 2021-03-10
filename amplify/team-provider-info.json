@@ -1,0 +1,26 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-bizbillpay-dev-83410-authRole",
+      "UnauthRoleArn": "arn:aws:iam::626411624502:role/amplify-bizbillpay-dev-83410-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::626411624502:role/amplify-bizbillpay-dev-83410-authRole",
+      "Region": "us-west-2",
+      "DeploymentBucketName": "amplify-bizbillpay-dev-83410-deployment",
+      "UnauthRoleName": "amplify-bizbillpay-dev-83410-unauthRole",
+      "StackName": "amplify-bizbillpay-dev-83410",
+      "StackId": "arn:aws:cloudformation:us-west-2:626411624502:stack/amplify-bizbillpay-dev-83410/48411620-80f5-11eb-a17f-022f929deaa1",
+      "AmplifyAppId": "d23v3a30wvjc11"
+    },
+    "categories": {
+      "auth": {
+        "bizbillpay6f2f2a8b": {}
+      },
+      "function": {
+        "petsfunction": {
+          "deploymentBucketName": "amplify-bizbillpay-dev-83410-deployment",
+          "s3Key": "amplify-builds/petsfunction-6e42733848512f5a6f55-build.zip"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,5 @@
+{
+    "tableName": "billsdb",
+    "partitionKeyName": "id",
+    "partitionKeyType": "N"
+}

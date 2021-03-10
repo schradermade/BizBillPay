@@ -1,0 +1,42 @@
+{
+    "paths": [
+        {
+            "name": "/bills",
+            "lambdaFunction": "petsfunction",
+            "privacy": {
+                "private": true,
+                "auth": [
+                    "/POST",
+                    "/GET",
+                    "/PUT",
+                    "/PATCH",
+                    "/DELETE"
+                ]
+            },
+            "policyResourceName": "/bills"
+        }
+    ],
+    "resourceName": "billapi",
+    "apiName": "billapi",
+    "functionArns": [
+        {
+            "lambdaFunction": "petsfunction"
+        }
+    ],
+    "privacy": {
+        "auth": 1,
+        "unauth": 0,
+        "authRoleName": "amplify-bizbillpay-dev-83410-authRole",
+        "unAuthRoleName": "amplify-bizbillpay-dev-83410-unauthRole"
+    },
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "petsfunction",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        }
+    ]
+}

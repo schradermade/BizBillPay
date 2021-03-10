@@ -1,9 +1,15 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
 import { v4 } from 'uuid';
 import '../App.css';
+import NewBill from './NewBill.js';
 import { Table, Button } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFileInvoiceDollar, faHandshake, faHandshakeSlash, faAddressCard } from '@fortawesome/free-solid-svg-icons';
+import Amplify, { API } from 'aws-amplify';
+import config from '../aws-exports';
+import { withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react';
+
+Amplify.configure(config);
 
 class App extends Component {
 
@@ -19,8 +25,12 @@ class App extends Component {
         'Paid' : false,
         'Phone' : "503-555-5555",
         'Address' : '1234 Main St',
-        'CityState' : 'Tigard, Oregon 97062',
-        'ContactShow' : false
+        'Unit' : '',
+        'City' : 'Tigard',
+        'State' : 'Oregon',
+        'Zip' : '97062',
+        'ContactShow' : false,
+        'Notes' : 'Card on file'
       },
       {
         'id' : v4(),
@@ -31,8 +41,12 @@ class App extends Component {
         'Paid' : false,
         'Phone' : "503-555-5555",
         'Address' : '1234 Main St',
-        'CityState' : 'Tigard, Oregon 97062',
-        'ContactShow' : false
+        'Unit' : '',
+        'City' : 'Tigard',
+        'State' : 'Oregon',
+        'Zip' : '97062',
+        'ContactShow' : false,
+        'Notes' : 'Card on file'
       },
       {
         'id' : v4(),
@@ -43,8 +57,12 @@ class App extends Component {
         'Paid' : false,
         'Phone' : "503-555-5555",
         'Address' : '1234 Main St',
-        'CityState' : 'Tigard, Oregon 97062',
-        'ContactShow' : false
+        'Unit' : '40',
+        'City' : 'Tigard',
+        'State' : 'Oregon',
+        'Zip' : '97062',
+        'ContactShow' : false,
+        'Notes' : 'Card on file'
       },
       {
         'id' : v4(),
@@ -55,8 +73,12 @@ class App extends Component {
         'Paid' : false,
         'Phone' : "503-555-5555",
         'Address' : '1234 Main St',
-        'CityState' : 'Tigard, Oregon 97062',
-        'ContactShow' : false
+        'Unit' : 'B5',
+        'City' : 'Tigard',
+        'State' : 'Oregon',
+        'Zip' : '97062',
+        'ContactShow' : false,
+        'Notes' : 'Card on file'
       },
       {
         'id' : v4(),
@@ -67,8 +89,12 @@ class App extends Component {
         'Paid' : false,
         'Phone' : "503-555-5555",
         'Address' : '1234 Main St',
-        'CityState' : 'Tigard, Oregon 97062',
-        'ContactShow' : false
+        'Unit' : '200',
+        'City' : 'Tigard',
+        'State' : 'Oregon',
+        'Zip' : '97062',
+        'ContactShow' : false,
+        'Notes' : 'Card on file'
       },
     ]
   }
@@ -133,6 +159,7 @@ class App extends Component {
       return  <tr key={bill.Id}>
                 <td>{bill.BillName}</td>
                 <td>{bill.DueDate}</td>
+                <td>{bill.Notes}</td>
 
                 <td><Button className='btn btn-lg btn-warning' 
                   onClick={() => this.redirectToBill(bill.id)}>
@@ -145,13 +172,19 @@ class App extends Component {
                 <td><Button className='btn btn-lg btn-info' 
                 onClick={() => this.contactClick(bill.id)}>
                 <FontAwesomeIcon icon={faAddressCard} /></Button></td>
+
                 { bill.ContactShow === true ? 
-                <td className='center text-left'> <strong>Phone</strong><br/>
-                                                  {bill.Phone}<br/><br/>
-                                                  <strong>Address</strong><br/>
-                                                  {bill.Address}<br/><br/>
-                                                  <strong>City, State, Zip</strong><br/>
-                                                  {bill.CityState}</td> : null }
+                <td className='center text-left'> 
+                  <strong>Phone</strong><br/>
+                  {bill.Phone}<br/><br/>
+                  <strong>Address</strong><br/>
+                  {bill.Address}<br/><br/>
+                  <strong>Unit</strong><br/>
+                  {bill.Unit}<br/><br/>
+                  <strong>City, State, Zip</strong><br/>
+                  {bill.City}, {bill.State} {bill.Zip}<br/><br/>
+                  </td> : null }
+
               </tr>
         }
       }  
@@ -165,6 +198,7 @@ class App extends Component {
                 <td>{bill.BillName}</td>
                 <td>{bill.DueDate}</td>
                 <td>{bill.DatePaid}</td>
+                <td>{bill.Notes}</td>
 
                 <td><Button className='btn btn-lg btn-warning' 
                 onClick={() => this.redirectToBill(bill.id)}>
@@ -178,12 +212,16 @@ class App extends Component {
                 onClick={() => this.contactClick(bill.id)}>
                 <FontAwesomeIcon icon={faAddressCard} /></Button></td>
                 { bill.ContactShow === true ? 
-                <td className='center text-left'> <strong>Phone</strong><br/>
-                                                  {bill.Phone}<br/><br/>
-                                                  <strong>Address</strong><br/>
-                                                  {bill.Address}<br/><br/>
-                                                  <strong>City, State, Zip</strong><br/>
-                                                  {bill.CityState}</td> : null }
+                <td className='center text-left'> 
+                  <strong>Phone</strong><br/>
+                  {bill.Phone}<br/><br/>
+                  <strong>Address</strong><br/>
+                  {bill.Address}<br/><br/>
+                  <strong>Unit</strong><br/>
+                  {bill.Unit}<br/><br/>
+                  <strong>City, State, Zip</strong><br/>
+                  {bill.City}, {bill.State} {bill.Zip}<br/><br/>
+                  </td> : null }
               </tr>
               
         }
@@ -192,11 +230,15 @@ class App extends Component {
 
     return (
       <>
+      <AmplifySignOut/>
       <div className={ isBackgroundGreen ? 'background-green' : 'background-red' }>
 
         {/* UN-PAID BILLS TABLE */}
-        <div className='container border border-secondary rounded center'>
-          <h1 className='center text-left'>Business Bill Tracker</h1>
+        <div className='container center'>
+          <br/>
+          <h1 style={{color: 'white'}} className='center text-left'>billtrakk</h1>
+          <h5 style={{color: 'silver'}}>a place where bills get organized</h5>
+          <br/>
           <div className='row'>
             <div className='center text-center'>
               <Table dark responsive striped bordered hover>
@@ -207,9 +249,10 @@ class App extends Component {
                   <tr>
                     <th>Bill Name</th>
                     <th>Due Date</th> 
+                    <th>Notes</th>
                     <th>Bill Link</th>
                     <th>Mark Paid</th>
-                    <th>Show Contact</th>
+                    <th><small>(click to show)<br/></small>Show Contact</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -221,10 +264,10 @@ class App extends Component {
         </div>
 
         {/* PAID BILLS TABLE */}
-        <div className='container border border-secondary rounded center'>
+        <div className='container center'>
           <div className='row'>
             <div className='center text-center'>
-              <Table dark responsive striped bordered hover>
+              <Table className='border border-white' dark responsive striped bordered hover>
                 <thead>
                 <tr>
                   <th className='center text-left' colSpan='8'>Paid Bills</th>
@@ -233,8 +276,10 @@ class App extends Component {
                     <th>Bill Name</th>
                     <th>Due Date</th>
                     <th>Date Paid</th>
+                    <th>Notes</th>
                     <th>Bill Link</th>
                     <th>Reverse</th>
+                    <th><small>(click to show)<br/></small>Show Contact</th>
                     
                   </tr>
                 </thead>
@@ -246,10 +291,11 @@ class App extends Component {
           </div>
         </div>
       </div>
+      {/* <NewBill /> */}
       </>
     
     );
   }
 }
 
-export default App;
+export default withAuthenticator(App);
